@@ -1,0 +1,31 @@
+# Node
+node_modules/
+package-lock.json
+
+# Logs
+logs/
+*.log
+
+# Runtime data
+checkpoint.json
+temp_output.xlsx
+
+# Excel files
+*.xlsx
+*.xls
+
+# Environment variables
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db 
