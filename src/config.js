@@ -6,5 +6,6 @@ export const CONFIG = {
   LOG_RETENTION_DAYS: 30,
   API_KEY: '**-732690694F10',
   API_COOKIE: 'ARRAffinity=cfb98572471b0c41299b8ff4c92bbd3ef0be3e4e54d0a694aa6258a51d038669; ARRAffinitySameSite=cfb98572471b0c41299b8ff4c92bbd3ef0be3e4e54d0a694aa6258a51d038669',
-  API_URL: 'https://**/api/v2/FTZ/GetPurchaseOrderDetails'
+  API_URL: 'https://**/api/v2/FTZ/GetPurchaseOrderDetails',
+  DEBUG: false
 }; 
