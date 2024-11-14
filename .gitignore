@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Node
 node_modules/
 package-lock.json
@@ -28,4 +29,36 @@ temp_output.xlsx
 .Spotlight-V100
 .Trashes
 ehthumbs.db
+=======
+# Node
+node_modules/
+package-lock.json
+
+# Logs
+logs/
+*.log
+
+# Runtime data
+checkpoint.json
+temp_output.xlsx
+
+# Excel files
+*.xlsx
+*.xls
+
+# Environment variables
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+>>>>>>> 6544d36fc48df5faf5ea5dbabf87fd115eaa13bc
 Thumbs.db 

@@ -1,6 +1,7 @@
 import xlsx from 'xlsx';
 import fs from 'fs';
 import { CONFIG } from './config.js';
+import { debug } from './utils.js';
 
 export class ExcelHandler {
   static loadCheckpoint() {

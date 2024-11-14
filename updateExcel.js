@@ -1,7 +1,7 @@
 import { Logger } from './src/logger.js';
 import { ExcelHandler } from './src/excel.js';
 import { ApiHandler } from './src/api.js';
-import { sleep } from './src/utils.js';
+import { sleep, debug } from './src/utils.js';
 import fs from 'fs';
 import { CONFIG } from './src/config.js';
 

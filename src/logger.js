@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { CONFIG } from './config.js';
+import { debug } from './utils.js';
 
 export class Logger {
   static getLogFilePath() {
