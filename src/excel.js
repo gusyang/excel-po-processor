@@ -7,11 +7,11 @@ export class ExcelHandler {
     try {
       if (fs.existsSync(CONFIG.CHECKPOINT_FILE)) {
         const checkpoint = JSON.parse(fs.readFileSync(CONFIG.CHECKPOINT_FILE, 'utf8'));
-        console.log(`Resuming from row ${checkpoint.lastProcessedRow}`);
+        debug.log(`Resuming from row ${checkpoint.lastProcessedRow}`);
         return checkpoint.lastProcessedRow;
       }
     } catch (error) {
-      console.error('Error loading checkpoint:', error);
+      debug.error('Error loading checkpoint:', error);
     }
     return -1;
   }
@@ -23,9 +23,9 @@ export class ExcelHandler {
       const tempSheet = xlsx.utils.json_to_sheet(data);
       xlsx.utils.book_append_sheet(tempWorkbook, tempSheet, 'Updated Data');
       xlsx.writeFile(tempWorkbook, CONFIG.TEMP_OUTPUT_FILE);
-      console.log(`Checkpoint saved at row ${rowIndex}`);
+      debug.log(`Checkpoint saved at row ${rowIndex}`);
     } catch (error) {
-      console.error('Error saving checkpoint:', error);
+      debug.error('Error saving checkpoint:', error);
     }
   }
 

@@ -23,12 +23,15 @@ async function updateExcel(inputFile, outputFile) {
       try {
         const jsonData = await ApiHandler.fetchPurchaseOrderDetails(poNo);
         
-        if (jsonData.length > 0) {
+        if (jsonData && jsonData.length > 0) {
           const firstNode = jsonData[0];
           row.masterBillOfLading = firstNode.masterBillOfLading;
           row.houseBillOfLading = firstNode.houseBillOfLading;
           row.containerNum = firstNode.containerNum;
+          row.subReceiptType = firstNode.customsStatus;
           Logger.logExecution(poNo, startTime, true);
+        } else {
+          Logger.logExecution(poNo, startTime, false, 'No data found');
         }
 
         ExcelHandler.saveCheckpoint(i, data);
@@ -40,14 +43,14 @@ async function updateExcel(inputFile, outputFile) {
       }
 
       if ((i + 1) % 100 === 0) {
-        console.log(`Processed ${i + 1} rows. Sleeping for 5 seconds...`);
+        debug.log(`Processed ${i + 1} rows. Sleeping for 5 seconds...`);
         await sleep(5000);
       }
     }
   }
 
   ExcelHandler.writeExcelFile(data, outputFile);
-  console.log(`Updated Excel file saved as ${outputFile}`);
+  debug.log(`Updated Excel file saved as ${outputFile}`);
   
   // Cleanup
   fs.unlinkSync(CONFIG.CHECKPOINT_FILE);
@@ -60,7 +63,7 @@ updateExcel('./sourcefile/book1.xlsx', 'output.xlsx')
     Logger.generateDailySummary();
   })
   .catch(error => {
-    console.error('Script failed:', error);
+    debug.error('Script failed:', error);
     Logger.generateDailySummary();
     process.exit(1);
   });
