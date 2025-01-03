@@ -14,10 +14,15 @@ async function updateExcel(inputFile, outputFile) {
   for (let i = startRow; i < data.length; i++) {
     const row = data[i];
     let poNo = row.poNo;
-    
+    if(poNo && poNo[0] !== 'P') {
+      Logger.logExecution(poNo, new Date(), false, 'PO number does not start with P, skipping');
+      continue;
+    }
+
     if (poNo) {
       poNo = poNo.substring(1);
-      row.poNo = poNo;
+      //do not change the poNo in the excel file
+      //row.poNo = poNo; 
 
       const startTime = new Date();
       try {
@@ -28,7 +33,8 @@ async function updateExcel(inputFile, outputFile) {
           row.masterBillOfLading = firstNode.masterBillOfLading;
           row.houseBillOfLading = firstNode.houseBillOfLading;
           row.containerNum = firstNode.containerNum;
-          row.subReceiptType = firstNode.customsStatus;
+          //do not change subReceiptType in the excel file, using customsStatus instead
+          row.customsStatus = firstNode.customsStatus;
           Logger.logExecution(poNo, startTime, true);
         } else {
           Logger.logExecution(poNo, startTime, false, 'No data found');
@@ -60,10 +66,18 @@ async function updateExcel(inputFile, outputFile) {
 // Usage
 updateExcel('./sourcefile/book1.xlsx', 'output.xlsx')
   .then(() => {
-    Logger.generateDailySummary();
+    try {
+      Logger.generateDailySummary();
+    } catch (error) {
+      debug.error('Failed to generate daily summary:', error);
+    }
   })
   .catch(error => {
     debug.error('Script failed:', error);
-    Logger.generateDailySummary();
+    try {
+      Logger.generateDailySummary();
+    } catch (summaryError) {
+      debug.error('Failed to generate daily summary:', summaryError);
+    }
     process.exit(1);
   });
